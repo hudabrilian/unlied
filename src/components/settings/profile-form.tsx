@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { api } from "~/utils/api";
@@ -41,6 +42,7 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 export default function ProfileForm() {
   const { data: profileData, isLoading } = api.profile.getProfile.useQuery();
+  const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const utils = api.useContext();
   const updateProfile = api.profile.update.useMutation({
     onSuccess: async () => {
@@ -48,6 +50,7 @@ export default function ProfileForm() {
         title: "Profile updated",
       });
       await utils.profile.invalidate();
+      setIsSubmit(false);
     },
     onError: (err) => {
       if (err.data?.code === "CONFLICT") {
@@ -60,6 +63,7 @@ export default function ProfileForm() {
         description: err.message,
         variant: "destructive",
       });
+      setIsSubmit(false);
     },
   });
 
@@ -79,6 +83,7 @@ export default function ProfileForm() {
   }, [form, profileData]);
 
   function onSubmit(data: ProfileFormValues) {
+    setIsSubmit(true);
     updateProfile.mutate(data);
   }
 
@@ -121,11 +126,12 @@ export default function ProfileForm() {
               </FormItem>
             )}
           />
-          <Button
-            type="submit"
-            disabled={!form.formState.isDirty || form.formState.isLoading}
-          >
-            Update profile
+          <Button type="submit" disabled={!form.formState.isDirty || isSubmit}>
+            {isSubmit ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <>Update profile</>
+            )}
           </Button>
         </form>
       </Form>
