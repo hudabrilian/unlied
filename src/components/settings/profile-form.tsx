@@ -88,7 +88,7 @@ export default function ProfileForm() {
   }
 
   return !isLoading ? (
-    <div className="space-y-8">
+    <div className="flex flex-col items-center justify-center space-y-8">
       {profileData && profileData.image && profileData.name && (
         <Avatar className="h-32 w-32">
           <AvatarImage src={profileData.image} alt={profileData.name} />

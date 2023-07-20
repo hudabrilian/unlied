@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Loader2 } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import ErrorPage from "next/error";
 import Head from "next/head";
@@ -59,6 +60,7 @@ export default function ConfessPage() {
   const usernameQuery = router.query.username as string;
   const username = usernameQuery ? usernameQuery.replace("@", "") : "";
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [sendAsAnon, setSendAsAnon] = useState<boolean>(false);
 
   const { data: userData, isLoading } = api.confess.getUser.useQuery({
@@ -79,12 +81,14 @@ export default function ConfessPage() {
   const createConfess = api.confess.create.useMutation({
     onSuccess: () => {
       setIsSubmit(true);
+      setIsSubmitting(false);
       setMessageValue("");
     },
   });
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     if (messageValue.trim().length === 0) {
       return;
@@ -137,7 +141,7 @@ export default function ConfessPage() {
                   </span>
                 </>
               )}
-              <CardTitle className="ml-4 flex select-none flex-col justify-center text-center">
+              <CardTitle className="flex select-none flex-col justify-center text-center sm:ml-4">
                 {username === session.data?.user.username ? (
                   <div className="items-start">
                     <span>
@@ -202,7 +206,17 @@ export default function ConfessPage() {
                     </span>
                   </div>
                 </div>
-                {isLoading ? (
+                <Button
+                  disabled={isSubmitting || messageValue.trim().length < 1}
+                >
+                  {isSubmitting ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <>Send</>
+                  )}
+                </Button>
+                {/* 
+                {isSubmitting ? (
                   <Button className="disabled:cursor-not-allowed" disabled>
                     Sending...
                   </Button>
@@ -213,7 +227,7 @@ export default function ConfessPage() {
                   >
                     Send
                   </Button>
-                )}
+                )} */}
               </form>
               {session.status === "authenticated" ? (
                 <p className="mt-4 text-center text-xs font-light text-slate-500 sm:text-sm">

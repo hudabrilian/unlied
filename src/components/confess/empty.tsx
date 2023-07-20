@@ -2,7 +2,7 @@ import { Player } from "@lottiefiles/react-lottie-player";
 
 export default function Empty() {
   return (
-    <div className="flex flex-col items-center justify-center space-y-4">
+    <div className="flex flex-col items-center justify-center space-y-4 px-4 sm:px-0">
       <h1 className="font-semibold">
         Theres no confessions for you. Share ur link and get some confession.
       </h1>
