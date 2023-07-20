@@ -60,7 +60,6 @@ export default function ConfessPage() {
   const username = usernameQuery ? usernameQuery.replace("@", "") : "";
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const [sendAsAnon, setSendAsAnon] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>();
 
   const { data: userData, isLoading } = api.confess.getUser.useQuery({
     username: username,
@@ -88,7 +87,6 @@ export default function ConfessPage() {
     e.preventDefault();
 
     if (messageValue.trim().length === 0) {
-      setError("Message is required");
       return;
     }
 

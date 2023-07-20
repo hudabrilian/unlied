@@ -67,11 +67,6 @@ export default function QRCodeShare({ username, link }: Props) {
     qrCode.update(options);
   }, [qrCode, options]);
 
-  const onShareClick = () => {
-    console.log("Share");
-    return;
-  };
-
   const onCopyClick = () => {
     copy(link);
   };

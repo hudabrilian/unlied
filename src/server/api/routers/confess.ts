@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { string, z } from "zod";
+import { z } from "zod";
 import {
   createTRPCRouter,
   protectedProcedure,

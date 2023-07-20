@@ -1,5 +1,3 @@
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import { SidebarNav } from "../settings/sidebar-nav";
 import { Separator } from "../ui/separator";
 import Layout from "./layout";
