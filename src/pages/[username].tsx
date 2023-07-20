@@ -102,7 +102,11 @@ export default function ConfessPage() {
   };
 
   if (isLoading) {
-    return <h1>Loading ...</h1>;
+    return (
+      <div className="flex h-screen w-screen items-center justify-center">
+        <Loader2 className="h-20 w-20 animate-spin" />
+      </div>
+    );
   }
 
   if (userData == null) {
@@ -215,19 +219,6 @@ export default function ConfessPage() {
                     <>Send</>
                   )}
                 </Button>
-                {/* 
-                {isSubmitting ? (
-                  <Button className="disabled:cursor-not-allowed" disabled>
-                    Sending...
-                  </Button>
-                ) : (
-                  <Button
-                    className="disabled:cursor-not-allowed"
-                    disabled={messageValue.trim().length < 1}
-                  >
-                    Send
-                  </Button>
-                )} */}
               </form>
               {session.status === "authenticated" ? (
                 <p className="mt-4 text-center text-xs font-light text-slate-500 sm:text-sm">
