@@ -90,7 +90,12 @@ export default function QRCodeShare({ username, link, size }: Props) {
       ) : (
         <div ref={ref}></div>
       )}
-      <h1 className="mb-4 text-lg font-semibold">@{username}</h1>
+      <div className="my-4 text-center">
+        <h1 className="text-lg font-semibold">@{username}</h1>
+        <span className="text-sm text-gray-400">
+          Change username in the settings page
+        </span>
+      </div>
       <div className="flex space-x-4">
         <Popover>
           <PopoverTrigger asChild>

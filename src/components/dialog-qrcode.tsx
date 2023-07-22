@@ -9,6 +9,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
+import { Button } from "./ui/button";
+import Link from "next/link";
 
 const DynamicQRCodeShare = dynamic(() => import("./qrcode"), {
   ssr: false,
@@ -42,7 +44,12 @@ export default function DialogQrCode({ size, username, children }: Props) {
               />
             </>
           ) : (
-            <p>Set your username first</p>
+            <div className="flex flex-col space-y-4">
+              <p>Set your username first at settings page</p>
+              <Link href="/settings">
+                <Button>Settings Page</Button>
+              </Link>
+            </div>
           )}
         </DialogHeader>
       </DialogContent>

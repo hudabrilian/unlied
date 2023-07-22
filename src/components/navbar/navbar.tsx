@@ -4,6 +4,7 @@ import useNavbarStore from "~/store/navbar";
 import { api } from "~/utils/api";
 import DialogQrCode from "../dialog-qrcode";
 import TextLogo from "../text-logo";
+import { ThemeButton } from "../theme-button";
 import { Button } from "../ui/button";
 import { MainNav } from "./main-nav";
 import { UserNav } from "./user-nav";
@@ -18,7 +19,7 @@ export default function Navbar() {
   ]);
 
   return (
-    <div className="sticky top-0 z-10 my-2 flex items-center justify-between space-y-2 border-b bg-white px-8 py-5 shadow-sm">
+    <div className="sticky top-0 z-10 my-2 flex items-center justify-between space-y-2 border-b bg-white px-8 py-5 shadow-sm dark:bg-background">
       <div className="flex items-center space-x-8">
         <button onClick={toggleMenu} className="flex sm:hidden">
           {isMenuOpen ? <X /> : <Menu />}
@@ -33,8 +34,11 @@ export default function Navbar() {
               size={{ width: 400, height: 400 }}
               username={userData && userData.username}
             >
-              <Button className="hidden sm:flex">Share link</Button>
+              <Button className="hidden sm:flex" variant="outline">
+                Share link
+              </Button>
             </DialogQrCode>
+            <ThemeButton />
             {userData && <UserNav user={userData} />}
           </div>
         ) : (

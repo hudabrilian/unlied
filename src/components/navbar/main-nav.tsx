@@ -46,7 +46,7 @@ export function MainNav({ username }: Props) {
     <>
       <div
         className={cn(
-          "absolute -left-8 top-[89px] z-20 w-full flex-col space-y-2 bg-white px-8 py-6 shadow-md transition-all duration-150 ease-in-out sm:hidden",
+          "light:bg-white absolute -left-8 top-[89px] z-20 w-full flex-col space-y-2 bg-background px-8 py-6 shadow-md transition-all duration-150 ease-in-out sm:hidden",
           isMenuOpen ? "flex" : "hidden"
         )}
       >
@@ -54,7 +54,11 @@ export function MainNav({ username }: Props) {
           <Button
             key={item.title}
             variant="ghost"
-            className={pathname === item.href ? "bg-slate-100" : ""}
+            className={
+              pathname === item.href
+                ? "light:bg-slate-100 dark:bg-slate-700"
+                : ""
+            }
             asChild
           >
             <Link href={item.href} onClick={toggleMenu}>
