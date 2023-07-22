@@ -117,9 +117,24 @@ export default function ConfessPage() {
     <>
       <Head>
         <title>Unlied - @{username}</title>
+        <meta
+          name="description"
+          content="An online platform for heartfelt confessions and messages."
+        />
+        <link rel="icon" href="/favicon.ico" />
+        <meta
+          property="og:title"
+          content="An online platform for heartfelt confessions and messages."
+        />
+        <meta
+          property="og:description"
+          content="An online platform for heartfelt confessions and messages."
+        />
+        <meta property="og:url" content="https://unlied.brilian.me/" />
+        <meta property="og:type" content="website" />
         <meta name="referrer" content="no-referrer" />
       </Head>
-      <div className="min-w-screen flex min-h-screen flex-col items-center justify-center bg-gradient-to-r from-[#B993D6] to-[#8CA6DB]">
+      <div className="min-w-screen flex min-h-screen flex-col items-center justify-center bg-gradient-to-r from-[#B993D6] to-[#8CA6DB] dark:from-[#606c88] dark:to-[#3f4c6b]">
         <TextLogo className="absolute top-0 mt-10" />
 
         <motion.div
@@ -176,7 +191,7 @@ export default function ConfessPage() {
               <form className="flex flex-col space-y-8" onSubmit={handleSubmit}>
                 <div className="flex flex-col">
                   <textarea
-                    className="sm:text-md min-h-[70px] w-full resize-none rounded-md border-0 text-sm outline-none placeholder:text-muted-foreground sm:min-h-[100px]"
+                    className="sm:text-md min-h-[70px] w-full resize-none rounded-md border-0 text-sm outline-none placeholder:text-muted-foreground dark:bg-background sm:min-h-[100px]"
                     placeholder="Type your message here.."
                     ref={inputRef}
                     style={{ height: 0 }}
