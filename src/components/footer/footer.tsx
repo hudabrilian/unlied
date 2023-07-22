@@ -9,7 +9,7 @@ export default function Footer({ layout = true, bg = true }: Props) {
       className={
         `bottom-0 mb-10 mt-10 flex w-full items-center justify-center text-center text-sm font-light` +
         (!layout ? " absolute" : "") +
-        (bg ? " light:bg-white text-gray-400" : " text-white")
+        (bg ? "bg-white text-gray-400" : " text-white dark:text-gray-300")
       }
     >
       &copy; 2023 Unlied. Created with 🗿 by
