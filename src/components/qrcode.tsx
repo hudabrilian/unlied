@@ -14,14 +14,18 @@ import { Button } from "./ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 interface Props {
+  size: {
+    width: number;
+    height: number;
+  };
   username: string;
   link: string;
 }
 
-export default function QRCodeShare({ username, link }: Props) {
+export default function QRCodeShare({ username, link, size }: Props) {
   const [options] = useState<Options>({
-    width: 400,
-    height: 400,
+    width: size.width,
+    height: size.height,
     type: "svg" as DrawType,
     data: link,
     image: "/text-logo-2.png",

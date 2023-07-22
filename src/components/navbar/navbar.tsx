@@ -14,6 +14,8 @@ import {
 } from "../ui/dialog";
 import { UserNav } from "./user-nav";
 import { MainNav } from "./main-nav";
+import { Menu, X } from "lucide-react";
+import useNavbarStore from "~/store/navbar";
 
 const DynamicQRCodeShare = dynamic(() => import("../qrcode"), {
   ssr: false,
@@ -21,14 +23,21 @@ const DynamicQRCodeShare = dynamic(() => import("../qrcode"), {
 
 export default function Navbar() {
   const { data: sessionData } = useSession();
-
   const { data: userData } = api.profile.getProfile.useQuery();
+
+  const [isMenuOpen, toggleMenu] = useNavbarStore((state) => [
+    state.isMenuOpen,
+    state.toggleMenu,
+  ]);
 
   return (
     <div className="sticky top-0 z-10 my-2 flex items-center justify-between space-y-2 border-b bg-white px-8 py-5 shadow-sm">
-      <div className="flex space-x-8">
+      <div className="flex items-center space-x-8">
+        <button onClick={toggleMenu} className="flex sm:hidden">
+          {isMenuOpen ? <X /> : <Menu />}
+        </button>
         <TextLogo className="mr-4" />
-        <MainNav />
+        <MainNav username={userData && userData.username} />
       </div>
       <div className="flex items-center space-x-2">
         {sessionData ? (
@@ -48,6 +57,10 @@ export default function Navbar() {
                         </span>
                       </DialogDescription>
                       <DynamicQRCodeShare
+                        size={{
+                          width: 400,
+                          height: 400,
+                        }}
                         username={userData.username}
                         link={`${env.NEXT_PUBLIC_BASE_URL}/@${userData.username}`}
                       />
