@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import useNavbarStore from "~/store/navbar";
+import { cn } from "~/utils/utils";
+import DialogQrCode from "../dialog-qrcode";
+import { Button } from "../ui/button";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -8,20 +12,7 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "../ui/navigation-menu";
-import useNavbarStore from "~/store/navbar";
-import { Button } from "../ui/button";
-import { cn } from "~/utils/utils";
 import { Separator } from "../ui/separator";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
-import dynamic from "next/dynamic";
-import { env } from "~/env.mjs";
 
 interface MainNav {
   href: string;
@@ -33,15 +24,11 @@ const items: MainNav[] = [
     href: "/confessions",
     title: "Confessions",
   },
-  {
-    href: "/questions",
-    title: "Questions",
-  },
+  // {
+  //   href: "/questions",
+  //   title: "Questions",
+  // },
 ];
-
-const DynamicQRCodeShare = dynamic(() => import("../qrcode"), {
-  ssr: false,
-});
 
 interface Props {
   username?: string | null | undefined;
@@ -76,35 +63,9 @@ export function MainNav({ username }: Props) {
           </Button>
         ))}
         <Separator />
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button>Share link</Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              {username ? (
-                <div>
-                  <DialogTitle>Here your QR Code</DialogTitle>
-                  <DialogDescription>
-                    <span>
-                      Share to your friends. Make them confess to you!
-                    </span>
-                  </DialogDescription>
-                  <DynamicQRCodeShare
-                    size={{
-                      width: 300,
-                      height: 300,
-                    }}
-                    username={username}
-                    link={`${env.NEXT_PUBLIC_BASE_URL}/@${username}`}
-                  />
-                </div>
-              ) : (
-                <p>Set your username first</p>
-              )}
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
+        <DialogQrCode size={{ width: 300, height: 300 }} username={username}>
+          <Button>Share link</Button>
+        </DialogQrCode>
       </div>
       <NavigationMenu className="hidden sm:flex">
         <NavigationMenuList>
